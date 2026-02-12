@@ -120,17 +120,26 @@ function resetPositions() {
 }
 
 /**
- * 處理遊戲結束
+ * 設置遊戲結束畫面
+ * @param {string} title - 標題文字
+ * @param {string} scoreText - 分數顯示文字
  */
-function handleGameOver() {
-    gameState.isRunning = false;
+function setGameOverScreen(title, scoreText) {
     const gameOverEl = document.getElementById('gameOver');
     const finalScoreEl = document.getElementById('finalScore');
     const titleEl = gameOverEl?.querySelector('h2');
 
-    if (finalScoreEl) finalScoreEl.textContent = gameState.score;
-    if (titleEl) titleEl.textContent = '遊戲結束';
+    if (finalScoreEl) finalScoreEl.textContent = scoreText;
+    if (titleEl) titleEl.textContent = title;
     if (gameOverEl) gameOverEl.classList.remove('hidden');
+}
+
+/**
+ * 處理遊戲結束
+ */
+function handleGameOver() {
+    gameState.isRunning = false;
+    setGameOverScreen('遊戲結束', String(gameState.score));
 }
 
 /**
@@ -138,13 +147,7 @@ function handleGameOver() {
  */
 function handleWin() {
     gameState.isRunning = false;
-    const gameOverEl = document.getElementById('gameOver');
-    const finalScoreEl = document.getElementById('finalScore');
-    const titleEl = gameOverEl?.querySelector('h2');
-
-    if (finalScoreEl) finalScoreEl.textContent = gameState.score + ' (恭喜通關!)';
-    if (titleEl) titleEl.textContent = '遊戲通關!';
-    if (gameOverEl) gameOverEl.classList.remove('hidden');
+    setGameOverScreen('遊戲通關!', `${gameState.score} (恭喜通關!)`);
 }
 
 /**

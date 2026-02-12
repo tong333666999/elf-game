@@ -122,26 +122,21 @@ export class Pacman {
      */
     getDrawAngles() {
         const mouthAngle = 0.2 * this.mouthOpen;
-        let startAngle, endAngle;
-
-        if (this.direction.x === 1) {
-            startAngle = mouthAngle;
-            endAngle = Math.PI * 2 - mouthAngle;
-        } else if (this.direction.x === -1) {
-            startAngle = Math.PI + mouthAngle;
-            endAngle = Math.PI - mouthAngle;
-        } else if (this.direction.y === -1) {
-            startAngle = -Math.PI / 2 + mouthAngle;
-            endAngle = -Math.PI / 2 - mouthAngle + Math.PI * 2;
-        } else if (this.direction.y === 1) {
-            startAngle = Math.PI / 2 + mouthAngle;
-            endAngle = Math.PI / 2 - mouthAngle + Math.PI * 2;
-        } else {
-            // 預設向右
-            startAngle = mouthAngle;
-            endAngle = Math.PI * 2 - mouthAngle;
-        }
-
-        return { startAngle, endAngle };
+        
+        // 方向到基礎角度的映射
+        const baseAngles = {
+            '1,0': 0,           // 右
+            '-1,0': Math.PI,    // 左
+            '0,-1': -Math.PI/2, // 上
+            '0,1': Math.PI/2    // 下
+        };
+        
+        const key = `${this.direction.x},${this.direction.y}`;
+        const baseAngle = baseAngles[key] ?? 0; // 預設向右
+        
+        return {
+            startAngle: baseAngle + mouthAngle,
+            endAngle: baseAngle + Math.PI * 2 - mouthAngle
+        };
     }
 }

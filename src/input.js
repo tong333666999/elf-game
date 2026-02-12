@@ -5,20 +5,16 @@
 import { DIRECTIONS } from './config.js';
 import { gameState } from './state.js';
 
-// 按鍵映射
+// 按鍵映射（使用小寫進行大小寫不敏感匹配）
 const KEY_MAP = {
-    'ArrowUp': DIRECTIONS.UP,
+    'arrowup': DIRECTIONS.UP,
     'w': DIRECTIONS.UP,
-    'W': DIRECTIONS.UP,
-    'ArrowDown': DIRECTIONS.DOWN,
+    'arrowdown': DIRECTIONS.DOWN,
     's': DIRECTIONS.DOWN,
-    'S': DIRECTIONS.DOWN,
-    'ArrowLeft': DIRECTIONS.LEFT,
+    'arrowleft': DIRECTIONS.LEFT,
     'a': DIRECTIONS.LEFT,
-    'A': DIRECTIONS.LEFT,
-    'ArrowRight': DIRECTIONS.RIGHT,
-    'd': DIRECTIONS.RIGHT,
-    'D': DIRECTIONS.RIGHT
+    'arrowright': DIRECTIONS.RIGHT,
+    'd': DIRECTIONS.RIGHT
 };
 
 // 按鈕ID映射
@@ -37,7 +33,7 @@ export function setupKeyboardControls(onDirectionChange) {
     document.addEventListener('keydown', (e) => {
         if (!gameState.isRunning) return;
 
-        const direction = KEY_MAP[e.key];
+        const direction = KEY_MAP[e.key.toLowerCase()];
         if (direction) {
             onDirectionChange(direction);
             e.preventDefault();

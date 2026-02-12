@@ -2,7 +2,7 @@
  * 幽靈實體
  * Ghost Entity
  */
-import { CONFIG, DIRECTIONS, COLORS } from '../config.js';
+import { CONFIG, DIRECTIONS, COLORS, GHOST_CONFIG } from '../config.js';
 import { canMove, getAvailableDirections, manhattanDistance } from '../map.js';
 import { addScore } from '../state.js';
 
@@ -132,13 +132,7 @@ export class Ghost {
  * @returns {Array<Ghost>}
  */
 export function createGhosts() {
-    const ghostConfigs = [
-        { x: 9, y: 9, color: COLORS.GHOST_RED, name: 'blinky' },
-        { x: 10, y: 9, color: COLORS.GHOST_PINK, name: 'pinky' },
-        { x: 8, y: 9, color: COLORS.GHOST_CYAN, name: 'inky' }
-    ];
-
-    return ghostConfigs.map(config => 
+    return GHOST_CONFIG.map(config => 
         new Ghost(config.x, config.y, config.color, config.name)
     );
 }
