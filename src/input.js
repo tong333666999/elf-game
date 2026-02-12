@@ -4,7 +4,7 @@
  */
 import { DIRECTIONS } from './config.js';
 import { gameState } from './state.js';
-import { playButtonClickSound } from './audio.js';
+import { audioManager } from './audio.js';
 
 // 按鍵映射（使用小寫進行大小寫不敏感匹配）
 const KEY_MAP = {
@@ -54,7 +54,7 @@ export function setupTouchControls(onDirectionChange) {
         const handleInput = (e) => {
             e.preventDefault();
             if (gameState.isRunning) {
-                playButtonClickSound(); // 播放按鈕音效
+                audioManager.playEatSound(); // 播放按鈕音效
                 onDirectionChange(direction);
             }
         };
@@ -103,6 +103,19 @@ export function setupSwipeControls(element, onDirectionChange) {
 }
 
 /**
+ * 設置靜音按鈕
+ */
+export function setupMuteButton() {
+    const muteBtn = document.getElementById('muteBtn');
+    if (!muteBtn) return;
+
+    muteBtn.addEventListener('click', () => {
+        const isMuted = audioManager.toggleMute();
+        muteBtn.textContent = isMuted ? '🔇' : '🔊';
+    });
+}
+
+/**
  * 設置所有輸入控制
  * @param {HTMLElement} canvas - 遊戲畫布元素
  * @param {Function} onDirectionChange - 方向改變時的回調函數
@@ -111,6 +124,7 @@ export function setupControls(canvas, onDirectionChange) {
     setupKeyboardControls(onDirectionChange);
     setupTouchControls(onDirectionChange);
     setupSwipeControls(canvas, onDirectionChange);
+    setupMuteButton();
 }
 
 /**

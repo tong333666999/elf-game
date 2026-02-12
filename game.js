@@ -57,7 +57,8 @@ export {
     setupKeyboardControls,
     setupTouchControls,
     setupSwipeControls,
-    setupButtonHandlers
+    setupButtonHandlers,
+    setupMuteButton
 } from './src/input.js';
 
 export {
@@ -83,6 +84,12 @@ export {
     resetPositions,
     updateScoreDisplay as updateScore
 } from './src/game.js';
+
+export {
+    // 音頻
+    AudioManager,
+    audioManager
+} from './src/audio.js';
 
 export {
     // 音效
