@@ -258,6 +258,40 @@ export class AudioManager {
     }
     
     /**
+     * 播放勝利音效
+     */
+    playWinSound() {
+        if (!this.audioContext || this.isMuted) return;
+        
+        const notes = [
+            { freq: 523.25, duration: 0.15 },  // C5
+            { freq: 659.25, duration: 0.15 },  // E5
+            { freq: 783.99, duration: 0.15 },  // G5
+            { freq: 1046.50, duration: 0.4 },  // C6
+        ];
+        
+        notes.forEach((note, index) => {
+            const oscillator = this.audioContext.createOscillator();
+            const gainNode = this.audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(this.sfxGain);
+            
+            const startTime = this.audioContext.currentTime + index * 0.15;
+            
+            oscillator.type = 'square';
+            oscillator.frequency.setValueAtTime(note.freq, startTime);
+            
+            gainNode.gain.setValueAtTime(0, startTime);
+            gainNode.gain.linearRampToValueAtTime(0.3, startTime + 0.02);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + note.duration);
+            
+            oscillator.start(startTime);
+            oscillator.stop(startTime + note.duration);
+        });
+    }
+    
+    /**
      * 恢復音頻上下文 (瀏覽器自動暫停後)
      */
     resume() {
