@@ -218,10 +218,19 @@ export function initGame() {
 
     // 設置按鈕事件
     setupButtonHandlers({
-        start: () => {
+        start: async () => {
+            // 初始化並恢復 AudioContext（必須在用戶交互後）
             audioManager.init();
+            if (audioManager.audioContext?.state === 'suspended') {
+                await audioManager.audioContext.resume();
+            }
             audioManager.resume();
-            audioManager.startBGM();
+            
+            // 延遲一點時間再開始 BGM，確保 AudioContext 已恢復
+            setTimeout(() => {
+                audioManager.startBGM();
+            }, 50);
+            
             const startScreen = document.getElementById('startScreen');
             if (startScreen) startScreen.classList.add('hidden');
             startGame();

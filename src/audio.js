@@ -120,6 +120,12 @@ export class AudioManager {
         if (this.isPlaying) return;
         
         this.init();
+        
+        // 確保 AudioContext 已恢復（瀏覽器自動播放政策）
+        if (this.audioContext && this.audioContext.state === 'suspended') {
+            this.audioContext.resume();
+        }
+        
         this.isPlaying = true;
         this.currentNote = 0;
         
@@ -137,7 +143,8 @@ export class AudioManager {
             this.noteInterval = setTimeout(playNextNote, noteData.duration * 1000);
         };
         
-        playNextNote();
+        // 延遲一點時間開始，確保 AudioContext 準備好
+        setTimeout(playNextNote, 100);
         console.log('[AudioManager] 背景音樂開始播放');
     }
     
