@@ -9,6 +9,7 @@ import { Pacman } from './entities/pacman.js';
 import { Ghost, createGhosts, frightenAllGhosts, calmAllGhosts } from './entities/ghost.js';
 import { setupControls, setupButtonHandlers } from './input.js';
 import { createCanvas, resizeCanvas, drawGame } from './renderer.js';
+import { playDeathSound, playWinSound, playButtonClickSound } from './audio.js';
 
 // 遊戲實例
 let canvas, ctx;
@@ -30,6 +31,7 @@ function updateScoreDisplay() {
  * 處理小精靈移動
  */
 function handlePacmanMove() {
+    const prevDots = gameState.dotsEaten;
     pacman.move();
     const result = pacman.consume();
 
@@ -98,6 +100,7 @@ function handleCollisions() {
  * @returns {boolean}
  */
 function handlePacmanCaught() {
+    playDeathSound(); // 播放死亡音效
     const hasLivesLeft = loseLife();
     updateScoreDisplay();
 
@@ -146,6 +149,7 @@ function handleGameOver() {
  * 處理勝利
  */
 function handleWin() {
+    playWinSound(); // 播放通關音效
     gameState.isRunning = false;
     setGameOverScreen('遊戲通關!', `${gameState.score} (恭喜通關!)`);
 }
@@ -206,11 +210,13 @@ export function initGame() {
     // 設置按鈕事件
     setupButtonHandlers({
         start: () => {
+            playButtonClickSound(); // 播放按鈕點擊音效
             const startScreen = document.getElementById('startScreen');
             if (startScreen) startScreen.classList.add('hidden');
             startGame();
         },
         restart: () => {
+            playButtonClickSound(); // 播放按鈕點擊音效
             const gameOverEl = document.getElementById('gameOver');
             if (gameOverEl) gameOverEl.classList.add('hidden');
 

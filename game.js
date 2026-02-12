@@ -84,6 +84,16 @@ export {
     updateScoreDisplay as updateScore
 } from './src/game.js';
 
+export {
+    // 音效
+    playEatDotSound,
+    playDeathSound,
+    playWinSound,
+    playButtonClickSound,
+    playPowerPelletSound,
+    initAudio
+} from './src/audio.js';
+
 // 啟動遊戲
 import { initGame } from './src/game.js';
 

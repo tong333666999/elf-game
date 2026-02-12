@@ -4,6 +4,7 @@
  */
 import { DIRECTIONS } from './config.js';
 import { gameState } from './state.js';
+import { playButtonClickSound } from './audio.js';
 
 // 按鍵映射（使用小寫進行大小寫不敏感匹配）
 const KEY_MAP = {
@@ -53,6 +54,7 @@ export function setupTouchControls(onDirectionChange) {
         const handleInput = (e) => {
             e.preventDefault();
             if (gameState.isRunning) {
+                playButtonClickSound(); // 播放按鈕音效
                 onDirectionChange(direction);
             }
         };

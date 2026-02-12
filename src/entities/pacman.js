@@ -5,6 +5,7 @@
 import { CONFIG, DIRECTIONS } from '../config.js';
 import { canMove, getDotAt, getPowerPelletAt, eatDot, eatPowerPellet } from '../map.js';
 import { addScore, eatDot as recordEatDot } from '../state.js';
+import { playEatDotSound, playPowerPelletSound } from '../audio.js';
 
 export class Pacman {
     constructor(x = 9, y = 17) {
@@ -98,6 +99,7 @@ export class Pacman {
             points += CONFIG.SCORE_DOT;
             recordEatDot();
             ateDot = true;
+            playEatDotSound(); // 播放吃豆子音效
         }
 
         // 檢查能量球
@@ -107,6 +109,7 @@ export class Pacman {
             points += CONFIG.SCORE_POWER;
             recordEatDot();
             atePower = true;
+            playPowerPelletSound(); // 播放能量球音效
         }
 
         if (points > 0) {
