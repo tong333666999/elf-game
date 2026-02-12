@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>小精靈遊戲 - Pac-Man</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="scoreBoard">
+            <div class="score">分數: <span id="score">0</span></div>
+            <div class="lives">生命: <span id="lives">3</span></div>
+        </div>
+        <canvas id="gameCanvas"></canvas>
+        <div id="controls">
+            <div class="d-pad">
+                <button id="upBtn" class="control-btn">▲</button>
+                <div class="horizontal-btns">
+                    <button id="leftBtn" class="control-btn">◀</button>
+                    <button id="rightBtn" class="control-btn">▶</button>
+                </div>
+                <button id="downBtn" class="control-btn">▼</button>
+            </div>
+        </div>
+        <div id="gameOver" class="hidden">
+            <div class="message">
+                <h2>遊戲結束</h2>
+                <p>最終分數: <span id="finalScore">0</span></p>
+                <button id="restartBtn">重新開始</button>
+            </div>
+        </div>
+        <div id="startScreen">
+            <div class="message">
+                <h1>🟡 小精靈</h1>
+                <p>點擊開始遊戲</p>
+                <button id="startBtn">開始</button>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
