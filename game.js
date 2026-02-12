@@ -527,5 +527,26 @@ function gameWin() {
     document.getElementById('gameOver').classList.remove('hidden');
 }
 
+// 導出供測試使用的函數與狀態
+export {
+    canMove,
+    movePacman,
+    moveGhosts,
+    checkCollisions,
+    loseLife,
+    updateScore,
+    parseMap,
+    init,
+    gameState,
+    pacman,
+    ghosts,
+    dots,
+    powerPellets,
+    CONFIG,
+    MAP
+};
+
 // 啟動遊戲
-document.addEventListener('DOMContentLoaded', init);
+if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', init);
+}
